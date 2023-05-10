@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Guntur&family=Imprima&display=swap');
+
+:root {
+    --c-bkg: #212121;
+    --c-button: #45EAF5;
+    --c-pink: #F55DB9;
+    --c-dpink: #A82774;
+
+    --fc-main: #ffffff;
+
+    --ff-imprima: 'Imprima', sans-serif;
+    --ff-hind: 'Hind Guntur', sans-serif;
+}
+body {
+    background-color: var(--c-bkg);
+    background-image: url('/img/topo_topLeft.png');
+    background-size: 60%;
+    background-repeat: no-repeat;
+    font-family: var(--ff-hind);
+    color: var(--fc-main);
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25% auto auto auto;
+}
+
+#submitButton {
+    background-color: var(--c-button);
+    border: none;
+    color: var(--c-bkg);
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0 5px #666;
+    transition-duration: 300ms;
+    
+}
+#submitButton:hover {
+    background-color: var(--c-pink);
+    color: var(--fc-main);
+    border: 2px solid #F55DB9;
+}
+
+#submitButton:active {
+    background-color: var(--c-pink);
+    box-shadow: 0 3px #666;
+    transform: translateY(4px);
+}
