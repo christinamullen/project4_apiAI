@@ -5,6 +5,7 @@
     --c-button: #45EAF5;
     --c-pink: #F55DB9;
     --c-dpink: #A82774;
+    --c-grey: #B3B3B3;
 
     --fc-main: #ffffff;
 
@@ -20,13 +21,14 @@ body {
     color: var(--fc-main);
 }
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 25% auto auto auto;
+    display: grid;
+    place-items: center;
+}
+.top{
+    margin: 20% auto 5% auto;
 }
 #query {
-    width: 300px;
+    width: 400px;
     height: 33px;
     padding: 5px;
     border: 1px solid #666;
@@ -60,4 +62,31 @@ body {
     background-color: var(--c-pink);
     box-shadow: 0 3px #666;
     transform: translateY(4px);
+}
+
+#bottom-tiles {
+    display: flex;
+}
+
+.sample-tiles {
+    background-color: var(--c-grey);
+    border-radius: 10px;
+    margin: 1%;
+    padding: 2%;
+    height: 350px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sample-tiles > img {
+    height: 200px;
+    width: 250px;
+    flex-shrink: 0;
+
+}
+.sample-tiles > h3 {
+    margin: 0;
+    flex-shrink: 0;
 }

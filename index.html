@@ -5,22 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/tile_gen.js" defer></script>
     <title>Project 4: APIs and AI</title>
 </head>
 <body>
     <div class="container">
-        <div class="hero-box">
+        <div class="top">
             <h2>Finding Contractors<br>
             Shouldn't Feel Like<br>
             Digging Through Mud</h2>
             <form id="queryForm">
                 <label for="query">Enter your query:</label><br>
-                <input type="text" id="query" name="query">
-                <input type="submit" value="Submit" id="submitButton">
+                <input type="text" id="query" name="query" placeholder="Ask anything about Bay Area Contractor Details or Permits">
+                <input type="submit" value="Search" id="submitButton">
             </form>
         </div>
-     </div>
-    <p id="result"></p>
-    
+        <div class="bottom" id="bottom-tiles">
+            <div class="sample-tiles" style="display: none">
+            <h3></h3>
+            <img />
+            </div>
+        </div>
+    </div>
 </body>
 </html>
