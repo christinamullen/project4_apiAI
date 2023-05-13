@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/tile_gen.js" defer></script>
+    <script src="js/script.js" defer></script>
     <title>Project 4: APIs and AI</title>
 </head>
 <body>
@@ -14,11 +15,33 @@
             <h2>Finding Contractors<br>
             Shouldn't Feel Like<br>
             Digging Through Mud</h2>
+            <div class="dropdowns">
+                <form>
+                    <label for="Contractor">Contractors</label>:
+                    <select name="contractors" id="contractors">
+                        <option value="" selected>Pick a Contractor</option>
+                    </select>
+                </form>
+                <form>
+                    <label for="job-type">Job Type</label>:
+                    <select name="job-type" id="job-type">
+                        <option value="" selected>Job Type</option>
+                    </select>
+                </form>
+                <form>
+                    <label for="location">location</label>:
+                    <select name="location" id="location">
+                        <option value="" selected>Location</option>
+                    </select>
+                </form>
+                  
+            </div>
             <form id="queryForm">
                 <label for="query">Enter your query:</label><br>
                 <input type="text" id="query" name="query" placeholder="Ask anything about Bay Area Contractor Details or Permits">
-                <input type="submit" value="Search" id="submitButton">
+                <input type="submit" value="Search" id="searchButton">
             </form>
+            
         </div>
         <div class="bottom" id="bottom-tiles">
             <div class="sample-tiles" style="display: none">
