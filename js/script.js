@@ -49,7 +49,11 @@ submitBtn.addEventListener('click', function(e) {
 //obj to json
   .then(response => response.json())
   //do something w data
-  .then(data => console.log(data))
+  .then(data => console.log(data)
+  )
+
+
+
   //.then(result => onResult(result))
   .catch(error => console.error('Error:', error));
 });

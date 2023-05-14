@@ -15,7 +15,7 @@
 body {
     background-color: var(--c-bkg);
     background-image: url('/img/topo_topLeft.png');
-    background-size: 75%;
+    background-size: 80%;
     background-repeat: no-repeat;
     font-family: var(--ff-hind);
     color: var(--fc-main);
@@ -83,6 +83,7 @@ input {
 
 #bottom-tiles {
     display: flex;
+    padding-top: 10%;
 }
 
 .sample-tiles {
@@ -90,8 +91,8 @@ input {
     border-radius: 10px;
     margin: 1%;
     padding: 2%;
-    height: 350px;
-    width: 300px;
+    height: 275px;
+    width: 275px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -101,6 +102,7 @@ input {
     height: 200px;
     width: 250px;
     flex-shrink: 0;
+    border-radius: 10px;
 
 }
 .sample-tiles > h3 {
