@@ -1,37 +1,37 @@
 const tiles =[
     {
-        prompt:"Who installed the most solar panels in Concord?", 
+        prompt:"San Francisco To Moab, UT", 
         icon: {
             src: "img/solarPanels.png",
-            alt: "solar panels",
+            alt: "A map showing the journey from SF to Moab",
         },
         map: {
            src: "img/randomMap.jpg", 
-           alt: "Contractor who installs EV Chargers in Pleasant Hill",
+           alt: "A map showing the journey from SF to Moab",
         },
 
     },
     {
-        prompt:"How many heat pump HVAC systems were installed in Contra Costa County last year?", 
+        prompt:"San Francisco To Moab, UT", 
         icon: {
             src: "img/CCCounty.png",
-            alt: "a map of Contra Costa County",
+            alt: "A map showing the journey from SF to Moab",
         },
         map: {
            src: "img/randomMap.jpg", 
-           alt: "Contractor who installs EV Chargers in Pleasant Hill",
+           alt: "A map showing the journey from SF to Moab",
         },
 
     },
     {
-        prompt:"Which contractor should I use to install an EV Charger in Pleasant Hill?", 
+        prompt:"San Francisco To Moab, UT", 
         icon: {
             src: "img/contractorPleasantHill.png",
-            alt: "Contractor who installs EV Chargers in Pleasant Hill",
+            alt: "A map showing the journey from SF to Moab",
         },
         map: {
            src: "img/randomMap.jpg",
-           alt: "Contractor who installs EV Chargers in Pleasant Hill", 
+           alt: "A map showing the journey from SF to Moab", 
         },
 
     },

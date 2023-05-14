@@ -37,8 +37,8 @@ form {
 
 
 
-#query {
-    width: 400px;
+input {
+    width: 200px;
     height: 33px;
     padding: 5px;
     border: 1px solid #666;
