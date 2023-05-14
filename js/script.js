@@ -1,37 +1,20 @@
 
 //fetch the data
-const startInput = document.querySelector('#startQuery');
-const endInput = document.querySelector('#endQuery');
+var cityArray = ["San Francisco", "San Rafael", "Orinda", "Hayward", "Sunnyvale"];
+var ecityArray = ["Seattle", "Ashland", "San Diego", "Moab", "South Lake Tahoe"];
+var select = document.getElementById("startCitySelect");
+var selectEnd = document.getElementById("endCitySelect");
 
-startInput.addEventListener('input', () => {
-    fetch(`https://basic-api-proxy-server.cnico078.repl.co/autocomplete?q=${startInput.value}`)
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json(); //Parses JSON data
-    })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((error) => {
-      console.error("There was a problem with the fetch operation:", error);
-  });
-});
+buildDropdown(cityArray, select);
+buildDropdown(ecityArray, selectEnd);
 
-endInput.addEventListener('input', () => {
-    fetch(`https://basic-api-proxy-server.cnico078.repl.co/autocomplete?q=${endInput.value}`)
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json(); //Parses JSON data
-    })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((error) => {
-      console.error("There was a problem with the fetch operation:", error);
-  });
-});
+function buildDropdown(array, select){
+    for(var i = 0; i < array.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = array[i];
+        opt.innerHTML = array[i];
+        select.appendChild(opt);
+    }
+}
+
 
