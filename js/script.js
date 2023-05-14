@@ -17,10 +17,18 @@ function buildDropdown(array, select){
     }
 }
 
+const map = L.map('map').setView([ 37.77429453858274, -122.43597088905996], 13);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
 var submitBtn = document.getElementById('searchButton');
 
-submitBtn.addEventListener('click', function(e) {
-  e.preventDefault();
+submitBtn.addEventListener('click', generateRoute);
+
+function generateRoute(){
   let originCity = origin.value;
   let destinationCity = destination.value;
 
@@ -49,11 +57,16 @@ submitBtn.addEventListener('click', function(e) {
 //obj to json
   .then(response => response.json())
   //do something w data
-  .then(data => console.log(data)
-  )
-
-
+  .then(data => {    
+    // draw line from origin to destination
+    let polyline = L.polyline([data.origin, data.destination], {color: 'red'}).addTo(map);
+    // Center map on line
+    map.fitBounds(polyline.getBounds());
+    //data
+    console.log(data)
+  })
 
   //.then(result => onResult(result))
   .catch(error => console.error('Error:', error));
-});
+}
+

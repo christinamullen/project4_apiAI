@@ -21,14 +21,14 @@ body {
     color: var(--fc-main);
 }
 .container {
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
 }
 .top{
-    margin: 20% auto 5% auto;
+    margin: 20% auto auto auto;
 }
 .searchInputs {
-    display: inline-flex;
+    display: flex;
     
 }
 form {
@@ -62,6 +62,13 @@ input {
     transition-duration: 300ms;
     
 }
+
+#map { 
+    height: 180px; 
+}
+
+
+
 #submitButton:hover {
     background-color: var(--c-pink);
     color: var(--fc-main);
@@ -73,17 +80,16 @@ input {
     box-shadow: 0 3px #666;
     transform: translateY(4px);
 }
-
-
-
-
-
-
+.bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 
 #bottom-tiles {
     display: flex;
-    padding-top: 10%;
+    padding-top: 20%;
 }
 
 .sample-tiles {
@@ -92,7 +98,7 @@ input {
     margin: 1%;
     padding: 2%;
     height: 275px;
-    width: 275px;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -100,12 +106,36 @@ input {
 
 .sample-tiles > img {
     height: 200px;
-    width: 250px;
+    width: 98%;
     flex-shrink: 0;
     border-radius: 10px;
+    margin: auto;
 
 }
 .sample-tiles > h3 {
     margin: 0;
     flex-shrink: 0;
 }
+@media screen and (min-width: 600px) {
+    .bottom {
+      flex-direction: row; 
+      justify-content: space-around;
+    }
+  
+    .sample-tiles {
+      width: 45%; 
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    .sample-tiles {
+      width: 30%; 
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
