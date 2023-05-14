@@ -31,51 +31,8 @@ body {
     display: inline-flex;
     
 }
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content {
-    max-height: 200px; /* Adjust as needed */
-}
-
-.dropdown-content::-webkit-scrollbar {
-    width: 4px;
-}
-
-.dropdown-content::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-.dropdown-content::-webkit-scrollbar-thumb:hover {
-    background: #555;
+form {
+    padding-left: 1%;
 }
 
 
