@@ -34,4 +34,24 @@ endInput.addEventListener('input', () => {
       console.error("There was a problem with the fetch operation:", error);
   });
 });
-
+//document.ready()
+$(function() {
+    function suggest(term, callback) {
+      $.getJSON(`https://basic-api-proxy-server.cnico078.repl.co/autocomplete?q=${term}`, function(data) {
+        var suggestions = data.suggestions.map(function(suggestion) {
+          return suggestion.label; 
+        });
+        callback(suggestions);
+      });
+    }
+  
+    $("#startQuery").autocomplete({
+      source: suggest,
+      minLength: 2
+    });
+  
+    $("#endQuery").autocomplete({
+      source: suggest,
+      minLength: 2
+    });
+  });
