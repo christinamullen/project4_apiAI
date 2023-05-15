@@ -63,26 +63,24 @@ function generateRoute(){
     routeCoordinates: routeData.routes[0].sections.map(section => polyline.decode(section.polyline))
   }));
 })
-.then (({routeData, routeCoordinates}) => {
-  console.log(routeData) 
+// draw line from origin to destination - this is straight line :(
+.then (({routeData, originCoords, destinationCoords, routeCoordinates}) => {
+  console.log(routeData)
   let allPoints = [];
-  // draw line from origin to destination - this is straight line :(
-  //let polyline = L.polyline(routeData.coordinates, {color: 'blue'}).addTo(map);
-  routeCoordinates.forEach(coordinates => {
-    let leafletFormattedCoordinates = coordinates.map(coord => [coord[0], coord[1]]);
-    let polyline = L.polyline(leafletFormattedCoordinates, {color: 'blue'}).addTo(map);
-    allPoints.push(...leafletFormattedCoordinates);
-  });
-  // Center map on line
-  map.fitBounds(allPoints);
+  addRouteShapeToMap(routeCoordinates, map);
 })
+  //let polyline = L.polyline(routeData.coordinates, {color: 'blue'}).addTo(map);
   .catch(error => console.error('Error:', error));
 }
 
-function addRouteShapeToMap(route) {
-  route.sections.forEach((section) => {
+function addRouteShapeToMap(routeCoordinates, map) {
+  routeCoordinates.sections.forEach((coordinates) => {
     // decode LineString from the flexible polyline
-    let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+    let linestring = new H.geo.LineString();
+
+    coordinates.forEach((coord) => {
+      linestring.pushPoint({lat: coord[0], lng: coord[1]});
+    });
 
     // Create a polyline to display the route:
     let polyline = new H.map.Polyline(linestring, {
