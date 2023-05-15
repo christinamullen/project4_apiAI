@@ -6,6 +6,7 @@
     --c-pink: #F55DB9;
     --c-dpink: #A82774;
     --c-grey: #B3B3B3;
+    --c-dkgrey: #666;
 
     --fc-main: #ffffff;
 
@@ -69,7 +70,7 @@ input {
     
 }
 .resultTile{
-    background-color: var(--c-grey);
+    background-color: var(--c-dkgrey);
     border-radius: 10px;
     margin: 1%;
     padding: 2%;
@@ -78,7 +79,8 @@ input {
 }
 
 #map { 
-    height: 180px; 
+    height: 200px; 
+    border-radius: 10px;
 }
 
 

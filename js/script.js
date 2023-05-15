@@ -52,21 +52,23 @@ function generateRoute(){
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ origin: originCoords, destination: destinationCoords })
-  });
-})
+  })
 //obj to json
   .then(response => response.json())
   //do something w data
-  .then(data => {    
-    // draw line from origin to destination
-    let polyline = L.polyline([data.origin, data.destination], {color: 'red'}).addTo(map);
-    // Center map on line
-    map.fitBounds(polyline.getBounds());
-    //data
-    console.log(data)
-  })
-
-  //.then(result => onResult(result))
+  .then(routeData => ({ 
+    routeData,
+    originCoords,
+    destinationCoords
+  }));
+})
+.then (({routeData, originCoords, destinationCoords}) => {
+  console.log(routeData) 
+  // draw line from origin to destination
+  let polyline = L.polyline([originCoords, destinationCoords], {color: 'blue'}).addTo(map);
+  // Center map on line
+  map.fitBounds(polyline.getBounds());
+})
   .catch(error => console.error('Error:', error));
 }
 
