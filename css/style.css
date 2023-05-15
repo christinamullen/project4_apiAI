@@ -72,18 +72,16 @@ input {
 .resultTile{
     background-color: var(--c-dkgrey);
     border-radius: 10px;
-    margin: 1%;
+    margin-top: 50px;
     padding: 2%;
-    height: 275px;
-    width: 30%;
+    height: 350px;
+    width: 300px;
 }
 
 #map { 
-    height: 200px; 
+    height: 250px; 
     border-radius: 10px;
 }
-
-
 
 #submitButton:hover {
     background-color: var(--c-pink);
@@ -96,16 +94,17 @@ input {
     box-shadow: 0 3px #666;
     transform: translateY(4px);
 }
+
 .bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); 
+    margin: auto;
 }
 
-
 #bottom-tiles {
-    display: flex;
-    padding-top: 20%;
+    padding-top: 5%;
 }
 
 .sample-tiles {
@@ -113,16 +112,17 @@ input {
     border-radius: 10px;
     margin: 1%;
     padding: 2%;
-    height: 275px;
-    width: 90%;
+    height: 350px;
+    width: 300px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    
 }
 
 .sample-tiles > img {
     height: 200px;
-    width: 98%;
+    width: 260px;
     flex-shrink: 0;
     border-radius: 10px;
     margin: auto;
@@ -132,20 +132,15 @@ input {
     margin: 0;
     flex-shrink: 0;
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 680px) {
     .bottom {
-      flex-direction: row; 
-      justify-content: space-around;
-    }
-  
-    .sample-tiles {
-      width: 45%; 
+        grid-template-columns: repeat(2, minmax(0, 1fr)); 
     }
   }
   
-  @media screen and (min-width: 900px) {
-    .sample-tiles {
-      width: 30%; 
+  @media screen and (min-width: 980px) {
+    .bottom {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); 
     }
   }
   
