@@ -46,7 +46,7 @@ function generateRoute(){
     let destinationCoords = destinationData.items[0].position;
 
   // Use Proxy server to calculate a route
-  return fetch('https://basic-api-proxy-server.cnico078.repl.co/route', {
+  return fetch('https://basic-api-proxy-server.cnico078.repl.co/routes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -59,16 +59,45 @@ function generateRoute(){
   .then(routeData => ({ 
     routeData,
     originCoords,
-    destinationCoords
+    destinationCoords,
+    routeCoordinates: routeData.routes[0].sections.map(section => polyline.decode(section.polyline))
   }));
 })
-.then (({routeData, originCoords, destinationCoords}) => {
+.then (({routeData, routeCoordinates}) => {
   console.log(routeData) 
-  // draw line from origin to destination
-  let polyline = L.polyline([originCoords, destinationCoords], {color: 'blue'}).addTo(map);
+  let allPoints = [];
+  // draw line from origin to destination - this is straight line :(
+  //let polyline = L.polyline(routeData.coordinates, {color: 'blue'}).addTo(map);
+  routeCoordinates.forEach(coordinates => {
+    let leafletFormattedCoordinates = coordinates.map(coord => [coord[0], coord[1]]);
+    let polyline = L.polyline(leafletFormattedCoordinates, {color: 'blue'}).addTo(map);
+    allPoints.push(...leafletFormattedCoordinates);
+  });
   // Center map on line
-  map.fitBounds(polyline.getBounds());
+  map.fitBounds(allPoints);
 })
   .catch(error => console.error('Error:', error));
+}
+
+function addRouteShapeToMap(route) {
+  route.sections.forEach((section) => {
+    // decode LineString from the flexible polyline
+    let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+
+    // Create a polyline to display the route:
+    let polyline = new H.map.Polyline(linestring, {
+      style: {
+        lineWidth: 4,
+        strokeColor: 'rgba(0, 128, 255, 0.7)'
+      }
+    });
+
+    // Add the polyline to the map
+    map.addObject(polyline);
+    // And zoom to its bounding rectangle
+    map.getViewModel().setLookAtData({
+      bounds: polyline.getBoundingBox()
+    });
+  });
 }
 
