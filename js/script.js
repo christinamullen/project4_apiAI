@@ -2,11 +2,14 @@
 ///fetch the data
 var cityArray = ["San Francisco", "San Rafael", "Orinda", "Hayward", "Sunnyvale"];
 var ecityArray = ["Seattle", "Ashland", "San Diego", "Moab", "South Lake Tahoe"];
+var rangeArray = [50, 100, 150, 200, 250, 300];
 var origin = document.getElementById("startCitySelect");
 var destination = document.getElementById("endCitySelect");
+//var range = document.getElementById("rangeSelect");
 
 buildDropdown(cityArray, origin);
 buildDropdown(ecityArray, destination);
+//buildDropdown(rangeArray, range);
 
 function buildDropdown(array, select){
     for(var i = 0; i < array.length; i++) {
@@ -45,37 +48,26 @@ function generateRoute(){
     let originCoords = originData.items[0].position;
     let destinationCoords = destinationData.items[0].position;
 
-  // Use Proxy server to calculate a route
-  return fetch('https://basic-api-proxy-server.cnico078.repl.co/routes', {
+  // Fetch charging stations along the route
+  return fetch('https://basic-api-proxy-server.cnico078.repl.co/chargingstations', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ origin: originCoords, destination: destinationCoords })
   })
-//obj to json
   .then(response => response.json())
-  //do something w data
-  .then(routeData => ({ 
-    routeData,
-    originCoords,
-    destinationCoords,
-    routeCoordinates: routeData.routes[0].sections.map(section => polyline.decode(section.polyline))
-  }));
-})
-.then (({routeData, routeCoordinates}) => {
-  console.log('Route Data: ' + routeData)
-  console.log('Route Coordinates: '+ routeCoordinates)
-  let allPoints = []; 
-  // draw line from origin to destination
-  routeCoordinates.forEach(coordinates => {
-    let polyline = L.polyline(coordinates, {color: 'blue'}).addTo(map);
-    allPoints.push(...coordinates);
-  });
+  .then(chargingStationsData => {
+    chargingStationsData.forEach(station => {
+      let marker = L.marker([station.lat, station.lng]).addTo(map);
+      marker.bindPopup(`<b>${station.name}</b><br>Capacity: ${station.capacity}`);
+    });
+
   // Center map on line
   //map.fitBounds(polyline.getBounds());
   let bounds = L.latLngBounds(allPoints);
   map.fitBounds(bounds);
+});
 })
   .catch(error => console.error('Error:', error));
 }
