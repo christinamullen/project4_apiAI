@@ -63,12 +63,19 @@ function generateRoute(){
     routeCoordinates: routeData.routes[0].sections.map(section => polyline.decode(section.polyline))
   }));
 })
-.then (({routeData, originCoords, destinationCoords}) => {
-  console.log(routeData) 
+.then (({routeData, routeCoordinates}) => {
+  console.log('Route Data: ' + routeData)
+  console.log('Route Coordinates: '+ routeCoordinates)
+  let allPoints = []; 
   // draw line from origin to destination
-  let polyline = L.polyline([originCoords, destinationCoords], {color: 'blue'}).addTo(map);
+  routeCoordinates.forEach(coordinates => {
+    let polyline = L.polyline(coordinates, {color: 'blue'}).addTo(map);
+    allPoints.push(...coordinates);
+  });
   // Center map on line
-  map.fitBounds(polyline.getBounds());
+  //map.fitBounds(polyline.getBounds());
+  let bounds = L.latLngBounds(allPoints);
+  map.fitBounds(bounds);
 })
   .catch(error => console.error('Error:', error));
 }
