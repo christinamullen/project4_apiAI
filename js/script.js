@@ -1,5 +1,5 @@
 
-//fetch the data
+///fetch the data
 var cityArray = ["San Francisco", "San Rafael", "Orinda", "Hayward", "Sunnyvale"];
 var ecityArray = ["Seattle", "Ashland", "San Diego", "Moab", "South Lake Tahoe"];
 var origin = document.getElementById("startCitySelect");
@@ -63,39 +63,14 @@ function generateRoute(){
     routeCoordinates: routeData.routes[0].sections.map(section => polyline.decode(section.polyline))
   }));
 })
-// draw line from origin to destination - this is straight line :(
-.then (({routeData, originCoords, destinationCoords, routeCoordinates}) => {
-  console.log(routeData)
-  let allPoints = [];
-  addRouteShapeToMap(routeCoordinates, map);
+.then (({routeData, originCoords, destinationCoords}) => {
+  console.log(routeData) 
+  // draw line from origin to destination
+  let polyline = L.polyline([originCoords, destinationCoords], {color: 'blue'}).addTo(map);
+  // Center map on line
+  map.fitBounds(polyline.getBounds());
 })
-  //let polyline = L.polyline(routeData.coordinates, {color: 'blue'}).addTo(map);
   .catch(error => console.error('Error:', error));
 }
 
-function addRouteShapeToMap(routeCoordinates, map) {
-  routeCoordinates.sections.forEach((coordinates) => {
-    // decode LineString from the flexible polyline
-    let linestring = new H.geo.LineString();
-
-    coordinates.forEach((coord) => {
-      linestring.pushPoint({lat: coord[0], lng: coord[1]});
-    });
-
-    // Create a polyline to display the route:
-    let polyline = new H.map.Polyline(linestring, {
-      style: {
-        lineWidth: 4,
-        strokeColor: 'rgba(0, 128, 255, 0.7)'
-      }
-    });
-
-    // Add the polyline to the map
-    map.addObject(polyline);
-    // And zoom to its bounding rectangle
-    map.getViewModel().setLookAtData({
-      bounds: polyline.getBoundingBox()
-    });
-  });
-}
 
