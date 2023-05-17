@@ -27,11 +27,27 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 //add ini marker to map
-var originMarker = "";
-var destinationMarker = "";
+var originMarker = null;
+var destinationMarker = null;
 var submitBtn = document.getElementById('searchButton');
 
-submitBtn.addEventListener('click', generateRoute);
+submitBtn.addEventListener('click', function() {
+  //remove previous markers if not null
+  if (originMarker !== null) {
+    map.removeLayer(originMarker);
+  }
+  if (destinationMarker !== null) {
+    map.removeLayer(destinationMarker);
+  }
+  generateRoute();
+  document.getElementById("tripInfo").innerText = `Your trip: ${origin.value} to ${destination.value}`;
+
+});
+
+
+
+
+
 
 function generateRoute() {
   let originCity = origin.value;
@@ -111,10 +127,3 @@ function generateRoute() {
     .catch(error => console.error('Error:', error));
   
 }
-/*
-//show map location
-function showLocation(coordinates) {
-  marker.setLatLng(coordinates); //change marker
-  //map.setView(coordinates, 13); //change map view
-}
-*/

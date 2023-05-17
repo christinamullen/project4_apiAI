@@ -74,7 +74,7 @@ input {
     border-radius: 10px;
     margin-top: 50px;
     padding: 2%;
-    height: 350px;
+    height: 385px;
     width: 300px;
 }
 
@@ -83,13 +83,13 @@ input {
     border-radius: 10px;
 }
 
-#submitButton:hover {
+#searchButton:hover {
     background-color: var(--c-pink);
     color: var(--fc-main);
     border: 2px solid #F55DB9;
 }
 
-#submitButton:active {
+#searchButton:active {
     background-color: var(--c-pink);
     box-shadow: 0 3px #666;
     transform: translateY(4px);
