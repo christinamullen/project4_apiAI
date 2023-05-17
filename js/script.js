@@ -100,11 +100,12 @@ function generateRoute() {
         destinationCoords
       }));
     })
+
+    //***********************************Not being reached yet, is it needed?************************************** */
     //callback
     .then(({
       routeData,
       routeCoordinates
-      
     }) => {
       console.log('Route Data: ' + routeData)
       //console.log('Route Coordinates: ' + routeCoordinates)
@@ -126,13 +127,6 @@ function generateRoute() {
         }
         
       });
-
-      // Auto adjust the map to fit all markers
-      //const group = new L.featureGroup([originMarker, destinationMarker]);
-     // map.whenReady(function() {
-        //map.fitBounds(group.getBounds());
-      //})
-      
       
     })
     .catch(error => console.error('Error:', error));
