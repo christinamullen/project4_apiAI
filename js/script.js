@@ -33,21 +33,16 @@ var submitBtn = document.getElementById('searchButton');
 
 submitBtn.addEventListener('click', function() {
   //remove previous markers if not null
-  if (originMarker !== null) {
+  if (originMarker != null) {
     map.removeLayer(originMarker);
   }
-  if (destinationMarker !== null) {
+  if (destinationMarker != null) {
     map.removeLayer(destinationMarker);
   }
   generateRoute();
   document.getElementById("tripInfo").innerText = `Your trip: ${origin.value} to ${destination.value}`;
 
 });
-
-
-
-
-
 
 function generateRoute() {
   let originCity = origin.value;
@@ -64,40 +59,51 @@ function generateRoute() {
       method: 'GET'
     })
   ])
-    //transform obj into json
-    .then(([originResponse, destinationResponse]) => Promise.all([originResponse.json(), destinationResponse.json()]))
-    //handle data
-    .then(([originData, destinationData]) => {
-      let originCoords = originData.items[0].position;
-      let destinationCoords = destinationData.items[0].position;
+  //transform obj into json
+  .then(([originResponse, destinationResponse]) => Promise.all([originResponse.json(), destinationResponse.json()]))
+  
+  //handle data
+  .then(([originData, destinationData]) => {
+    let originCoords = originData.items[0].position;
+    let destinationCoords = destinationData.items[0].position;
 
-      originMarker = L.marker(originCoords).addTo(map);
-      destinationMarker = L.marker(destinationCoords).addTo(map);
-
-      // Use Proxy server to calculate a route
-      return fetch('https://basic-api-proxy-server.cnico078.repl.co/routes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            origin: originCoords,
-            destination: destinationCoords
-          })
-        })
-        //obj to json
-        .then(response => response.json())
-        //do something w data
-        .then(routeData => ({
-          routeData,
-          originCoords,
-          destinationCoords,
-          routeCoordinates: routeData.routes[0].sections.map(section => polyline.decode(section.polyline))
-
-        }));
+    originMarker = L.marker(originCoords).addTo(map);
+    destinationMarker = L.marker(destinationCoords).addTo(map);
+    // Auto adjust the map to fit all markers
+    const group = new L.featureGroup([originMarker, destinationMarker]);
+    map.whenReady(function() {
+      map.fitBounds(group.getBounds());
     })
+
+    // Use Proxy server to calculate a route
+    return fetch('https://basic-api-proxy-server.cnico078.repl.co/routes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          origin: originCoords,
+          destination: destinationCoords
+        })
+      })
+      //obj to json
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      //do something w data
+      .then(routeData => ({
+        routeData,
+        originCoords,
+        destinationCoords
+      }));
+    })
+    //callback
     .then(({
       routeData,
+      routeCoordinates
       
     }) => {
       console.log('Route Data: ' + routeData)
@@ -116,13 +122,18 @@ function generateRoute() {
         console.log(section.arrival.place.type);
         // If the arrival place is a charging station, add a special popup
         if (section.arrival.place.type === "chargingStation") {
-          arrivalMarker.bindPopup(`<b>Charging Station</b><br>ID: ${section.arrival.place.id}<br>Charge: ${section.arrival.charge}%`);
+          destinationMarker.bindPopup(`<b>Charging Station</b><br>ID: ${section.arrival.place.id}<br>Charge: ${section.arrival.charge}%`);
         }
+        
       });
 
       // Auto adjust the map to fit all markers
-      const group = new L.featureGroup([originMarker, destinationMarker]);
-      map.fitBounds(group.getBounds());
+      //const group = new L.featureGroup([originMarker, destinationMarker]);
+     // map.whenReady(function() {
+        //map.fitBounds(group.getBounds());
+      //})
+      
+      
     })
     .catch(error => console.error('Error:', error));
   
