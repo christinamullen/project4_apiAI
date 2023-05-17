@@ -1,14 +1,14 @@
 ///fetch the data
-var cityArray = ["San Francisco", "San Rafael", "Orinda", "Hayward", "Sunnyvale"];
+var cityArray = ["San Francisco, CA", "Sacramento, CA", "Bodega Bay, CA", "Santa Barbara, CA", "Sunnyvale"];
 var ecityArray = ["Seattle, WA", "Bend, OR", "San Diego", "Moab, UT", "South Lake Tahoe"];
 var rangeArray = [50, 100, 150, 200, 250, 300];
 var origin = document.getElementById("startCitySelect");
 var destination = document.getElementById("endCitySelect");
-//var range = document.getElementById("rangeSelect");
+var range = document.getElementById("rangeSelect");
 
 buildDropdown(cityArray, origin);
 buildDropdown(ecityArray, destination);
-//buildDropdown(rangeArray, range);
+buildDropdown(rangeArray, range);
 
 function buildDropdown(array, select) {
   for (var i = 0; i < array.length; i++) {
@@ -58,9 +58,6 @@ function generateRoute() {
       originMarker = L.marker(originCoords).addTo(map);
       destinationMarker = L.marker(destinationCoords).addTo(map);
 
-      //showLocation(coordinates);
-      //showLocation(destinationMarker);
-
       // Use Proxy server to calculate a route
       return fetch('https://basic-api-proxy-server.cnico078.repl.co/routes', {
           method: 'POST',
@@ -79,15 +76,16 @@ function generateRoute() {
           routeData,
           originCoords,
           destinationCoords,
+          routeCoordinates: routeData.routes[0].sections.map(section => polyline.decode(section.polyline))
 
         }));
     })
     .then(({
       routeData,
-      routeCoordinates
+      
     }) => {
       console.log('Route Data: ' + routeData)
-      console.log('Route Coordinates: ' + routeCoordinates)
+      //console.log('Route Coordinates: ' + routeCoordinates)
 
       // Extract route sections from the data
       const sections = routeData.routes[0].sections;
@@ -95,24 +93,10 @@ function generateRoute() {
 
       sections.forEach((section) => {
         //console.log("polyline: " + section.polyline);
-        console.log(section.polyline);
-  
-        // Draw the polyline
-       // L.polyline(decodedPolyline, { color: 'blue'}).addTo(map);
 
-        // Get departure and arrival coordinates
-        const departureCoords = [section.departure.place.location.lat, section.departure.place.location.lng];
-        const arrivalCoords = [section.arrival.place.location.lat, section.arrival.place.location.lng];
+        originMarker.bindPopup(`<b>Departure</b><br>Charge: ${section.departure.charge}%`);
+        destinationMarker.bindPopup(`<b>Arrival</b><br>Charge: ${section.arrival.charge}%`);
 
-        // Draw line between departure and arrival points
-        //sL.polyline(decodedPolyline, { color: 'blue'}).addTo(map);
-
-        // Add markers for departure and arrival points
-        const departureMarker = L.marker(departureCoords).addTo(map);
-        departureMarker.bindPopup(`<b>Departure</b><br>Charge: ${section.departure.charge}%`);
-
-        const arrivalMarker = L.marker(arrivalCoords).addTo(map);
-        arrivalMarker.bindPopup(`<b>Arrival</b><br>Charge: ${section.arrival.charge}%`);
         console.log(section.arrival.place.type);
         // If the arrival place is a charging station, add a special popup
         if (section.arrival.place.type === "chargingStation") {
