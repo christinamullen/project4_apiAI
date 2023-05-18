@@ -22,9 +22,6 @@
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
     <script src='https://npmcdn.com/@mapbox/polyline@1.0.0'></script>
 
-    <!--<script src="https://cdn.jsdelivr.net/npm/@mapbox/polyline@1.1.1"></script>
-    <script src="https://unpkg.com/@here/flexpolyline"></script>-->
-    <!--<script src="js/L.Polyline.SnakeAnim.js"></script>-->
     <script src="js/tile_gen.js" defer></script>
     <script type="module" src="js/script.js"></script>
     <title>Project 4: ZapZones route planning</title>
@@ -35,6 +32,11 @@
             <h2>ZapZones<br>
             Route Planning<br>
             For your EV Journey</h2>
+            <form>
+                <label for="range">Vehicle Range</label>:
+                <select name="range" id="rangeSelect">
+                </select>
+            </form>
             <div class="searchInputs">
                 <form>
                     <label for="Start">Start</label>:
@@ -45,11 +47,7 @@
                     <select id="endCitySelect"></select>
                 </form>
                 
-                <form>
-                    <label for="range">Vehicle Range</label>:
-                    <select name="range" id="rangeSelect">
-                    </select>
-                </form>
+
                 
             </div>
             <button id="searchButton">GO!</button>
