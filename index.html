@@ -46,9 +46,6 @@
                     <label for="end">End</label>:
                     <select id="endCitySelect"></select>
                 </form>
-                
-
-                
             </div>
             <button id="searchButton">GO!</button>
             
@@ -71,29 +68,32 @@
                             <p id="summary" class="hide">2</p> <!-- Based on your EV's range of ___, you should charge at least ____ times-->
                             <p id="stations" class="hide">4</p><!-- Would you like charging stations at your destination? -->
                             <p id="turnByturn" class="hide">3</p> <!-- Would you like turn by turn directions? -->
-                            
                         </div>
-                        
                     </div>
                 </div>
-                
             </div>
-        </div>
-<!--
-    <div class="middle">
-        <div class="resultTile" id="result-tile">
-            <h2 id="tripInfo">Where are you going?</h2>
-            <div id="map"></div>
-            <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
             
         </div>
-    </div>-->
+        <div class="resultTile" id="charging-stations">
+            <div class="flip">
+                <div class="front">
+                    <div class="front-center">
+                        <h3>Charging stations near your destination</h3>
+                    </div>
+                </div>
+                <div class="back">
+                    <div id="destinationMap"></div>
+                </div>
+            </div>
+        </div>
+
+
+
 
     <div class="bottom" id="bottom-tiles">
         <div class="sample-tiles" style="display: none">
         <h3></h3>
         <img />
-        </div>
         
     </div>
 </body>

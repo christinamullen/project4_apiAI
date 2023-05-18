@@ -21,6 +21,7 @@ function buildDropdown(array, select) {
 }
 
 const map = L.map('map').setView([37.77429453858274, -122.43597088905996], 13);
+const destinationMap = L.map('destinationMap').setView([37.77429453858274, -122.43597088905996], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,

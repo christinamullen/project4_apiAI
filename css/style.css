@@ -141,6 +141,11 @@ input {
     transform: translateY(4px);
 }
 
+
+#charging-stations {
+    margin: auto;
+}
+
 .bottom {
     
     display: grid;
@@ -176,7 +181,7 @@ input {
 }
 .sample-tiles > h3 {
     margin: 0;
-    flex-shrink: 0;
+    padding: 5%;
 }
 @media screen and (min-width: 680px) {
     .bottom {
