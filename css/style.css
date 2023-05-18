@@ -69,14 +69,60 @@ input {
     align-items: center;
     
 }
+/********************** Flip ******************************/
 .resultTile{
-    background-color: var(--c-dkgrey);
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+/* flip the pane when hovered */
+.resultTile:hover .flip, .resultTile.hover .flip {
+    transform: rotateY(180deg);
+}
+
+.resultTile, .front, .back {
+	width: 320px;
+	height: 480px;
+}
+
+/* flip speed goes here */
+.flip {
+    background-color: var(--c-grey);
     border-radius: 10px;
     margin-top: 50px;
     padding: 2%;
     height: 385px;
-    width: 300px;
+    width: 450px;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
 }
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+    
+}
+.back-center, .front-center {
+    padding: 5%;
+}
+
 
 #map { 
     height: 250px; 

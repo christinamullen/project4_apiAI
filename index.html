@@ -58,11 +58,19 @@
             <div class="resultTile" id="result-tile">
                 <div class="flip">
                     <div class="front">
-                        <h2 id="tripInfo">Where are you going?</h2>
-                        <div id="map"></div>
-                        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
+                        <div class="front-center">
+                            <h2 id="tripInfo">Where are you going?</h2>
+                            <div id="map"></div>
+                            <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
+                        </div>
                     </div>
                     <div class="back">
+                        <div class="back-center">
+                            <h2 class="tripDetails">You're going places</h2>
+                            <p></p> <!--total miles-->
+                            <p></p> <!-- Based on your EV's range of ___, you should charge at least ____ times-->
+                            <p></p> <!-- Would you like turn by turn directions? -->
+                        </div>
                         
                     </div>
                 </div>

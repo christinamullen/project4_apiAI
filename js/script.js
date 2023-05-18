@@ -39,8 +39,13 @@ submitBtn.addEventListener('click', function() {
   if (destinationMarker != null) {
     map.removeLayer(destinationMarker);
   }
+
   generateRoute();
+  //Trip details for front
   document.getElementById("tripInfo").innerText = `Your trip: ${origin.value} to ${destination.value}`;
+  document.getElementById("tripInfo2").innerText = `click for trip details`;
+  //details for back
+  
 
 });
 
