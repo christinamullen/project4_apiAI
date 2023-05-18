@@ -28,6 +28,11 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(destinationMap);
+
 //add ini marker to map
 var originMarker = null;
 var destinationMarker = null;
@@ -119,7 +124,12 @@ function generateRoute() {
 
       var totalMiles = (totalDistance /1000)*0.621371;
       console.log('Total distance of the route:', totalMiles);
-      console.log(range.value);
+      console.log('range: ', range.value);
+      console.log('origin: ', routeData.destinationCoords);
+/**Where are the destinationCoords returned in the response?****************** */
+
+
+    
       var selectedRange = range.value;
       var chargeTimes = totalMiles/range.value;
       //call tripdata to put trip info on back of flippy card
@@ -129,20 +139,50 @@ function generateRoute() {
       } else {
         console.log('Based on your vehicle\'s range of ', range.value, ' you will need to charge at least ',  chargeTimes, ' times to reach your destination.');
       }
-      
-    
-        return {
-          routeData,
-          originCoords: routeData.originCoords,
-          destinationCoords: routeData.destinationCoords
-        };
-      })
-      .catch(error => console.error('Error:', error));
+      return {
+        routeData,
+        originCoords: routeData.originCoords,
+        destinationCoords: routeData.destinationCoords
+      };
     })
+    
+    // Fetch charging stations along the route
+  .then (data => fetch('https://basic-api-proxy-server.cnico078.repl.co/charging_stations', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ location: data.destinationCoords })
+
+    /**Body needs to be in this format
+ * {
+  "location": {
+    "lat": 37.7749,
+    "lng": -122.4194
+  }
+} */
+  }))
+    .then(response => response.json())
+    .then(chargingStationsData => {
+      console.log(chargingStationsData);
+      chargingStationsData.forEach(station => {
+        let marker = L.marker([station.lat, station.lng]).addTo(destinationMap);
+        marker.bindPopup(`<b>${station.name}</b><br>Capacity: ${station.capacity}`);
+      });
+      return {
+        routeData: data.routeData,
+        originCoords: data.originCoords,
+        destinationCoords: data.destinationCoords
+      };
+    })
+    .catch(error => console.error('Error:', error));
+    });
   } catch (error) {
     console.error('Error in generateRoute function:', error);
   }
 }
+
+//function adds trip summary to back of first tile
 function addTripData(totalMiles, chargeTimes, selectedRange, destination) {
   totalMiles = totalMiles.toFixed(2);
   chargeTimes = chargeTimes.toFixed(0);
@@ -153,8 +193,24 @@ function addTripData(totalMiles, chargeTimes, selectedRange, destination) {
   } else {
     document.getElementById("summary").innerText = `Based on your vehicle\'s range of ${selectedRange} you will need to charge at least ${chargeTimes} times to reach your destination.`;
   }
-  document.getElementById("turnByturn").innerText = `Turn by Turn directions`;
+  //document.getElementById("turnByturn").innerText = `Turn by Turn directions`;
   document.getElementById("stations").innerText = `Charging station options near ${destination}`;
   
-
  }
+ /*
+ async function getChargingStations(){
+  // Fetch charging stations along the route
+  const response = await fetch('https://basic-api-proxy-server.cnico078.repl.co/charging_stations', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({ origin: originCoords, destination: destinationCoords })
+   });
+   const chargingStationsData = await response.json();
+   chargingStationsData.forEach(station => {
+     let marker = L.marker([station.lat, station.lng]).addTo(destinationMap);
+     marker.bindPopup(`<b>${station.name}</b><br>Capacity: ${station.capacity}`);
+   });
+}
+*/
