@@ -99,7 +99,7 @@ form {
 
 /* flip speed goes here */
 .flip {
-    background-color: var(--c-grey);
+    background-color: var(--c-dkgrey);
     border-radius: 10px;
     margin-top: 50px;
 
