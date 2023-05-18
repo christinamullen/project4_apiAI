@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/1.13.1/mapbox-gl.min.css" />
    
-
     <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />   
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
@@ -32,11 +31,13 @@
             <h2>ZapZones<br>
             Route Planning<br>
             For your EV Journey</h2>
-            <form>
-                <label for="range">Vehicle Range</label>:
-                <select name="range" id="rangeSelect">
-                </select>
-            </form>
+            <div class="range_andGo">
+                <form>
+                    <label for="range">Vehicle Range</label>:
+                    <select name="range" id="rangeSelect"></select>
+                </form>
+                <button id="searchButton">GO!</button>
+             </div>
             <div class="searchInputs">
                 <form>
                     <label for="Start">Start</label>:
@@ -47,7 +48,7 @@
                     <select id="endCitySelect"></select>
                 </form>
             </div>
-            <button id="searchButton">GO!</button>
+            
             
         </div><!--top-->
 
@@ -56,7 +57,9 @@
                 <div class="flip">
                     <div class="front">
                         <div class="front-top">
+                            <div class="text-container">
                             <h2 id="tripInfo">Where are you going?</h2>
+                            </div>
                             <div id="map"></div>
                             <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
                         </div>
@@ -83,18 +86,21 @@
                     </div>
                 </div>
                 <div class="back">
+                    <div class="front-top">
                     <h4>Click on a marker to view station info</h4>
                     <div id="destinationMap"></div>
                     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
                 </div>
+                </div>
             </div>
         </div>
-
+<!--
     <div class="bottom" id="bottom-tiles">
         <div class="sample-tiles" style="display: none">
         <h3></h3>
         <img />
         
-    </div>
+    </div>-->
+    <footer> <h5>Cnicodesigns &copy; May 2023</h5></footer>
 </body>
 </html>

@@ -13,6 +13,9 @@
     --ff-imprima: 'Imprima', sans-serif;
     --ff-hind: 'Hind Guntur', sans-serif;
 }
+* {
+    box-sizing: border-box;
+}
 body {
     background-color: var(--c-bkg);
     background-image: url('/project4_apiAI/img/topo_topLeft.png');
@@ -26,7 +29,7 @@ body {
     flex-direction: column;
 }
 .top{
-    margin: 20% auto auto auto;
+    margin: 16% auto auto auto;
 }
 .searchInputs {
     display: flex;
@@ -35,15 +38,22 @@ body {
 form {
     padding-left: 1%;
 }
+.range_andGo {
+    display:inline-flex;
+}
 
-
-
-input {
-    width: 200px;
-    height: 33px;
-    padding: 5px;
-    border: 1px solid #666;
-    border-radius: 10px;
+#rangeSelect, #startCitySelect, #endCitySelect {
+    font-size: 13px;
+    padding: 10px 8px 10px 14px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    position: relative;
+    z-index: 10;
+    font-size: 1em;
+}
+.searchInputs {
+    padding-top: 5%;
 }
 
 #searchButton {
@@ -63,6 +73,7 @@ input {
     transition-duration: 300ms;
     
 }
+
 .middle {
     display: flex;
     justify-content: center;
@@ -113,6 +124,10 @@ input {
 	/* for firefox 31 */
 	transform: rotateY(0deg);
 }
+.front-top {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 /* back, initially hidden pane */
 .back {
@@ -127,6 +142,8 @@ input {
 #map, #destinationMap { 
     height: 250px; 
     border-radius: 10px;
+    position: relative;
+    
 }
 
 #searchButton:hover {
@@ -196,6 +213,25 @@ input {
     margin: 0;
     padding: 5%;
 }
+footer {
+    margin: auto;
+}
+/************* Scrollbar *******************/
+html::-webkit-scrollbar {
+    width: 15px; 
+ }
+
+html::-webkit-scrollbar-track {
+  background-color: black;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--c-dkgrey);
+  border-radius: 25px;
+}
+
+
+
 @media screen and (min-width: 680px) {
     .bottom {
         grid-template-columns: repeat(2, minmax(0, 1fr)); 
