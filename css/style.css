@@ -15,7 +15,7 @@
 }
 body {
     background-color: var(--c-bkg);
-    background-image: url('/img/topo_topLeft.png');
+    background-image: url('/project4_apiAI/img/topo_topLeft.png');
     background-size: 80%;
     background-repeat: no-repeat;
     font-family: var(--ff-hind);
