@@ -202,7 +202,7 @@ function addTripData(totalMiles, chargeTimes, selectedRange, destination) {
   totalMiles = totalMiles.toFixed(2);
   chargeTimes = chargeTimes.toFixed(0);
 
-  document.getElementById("totalMiles").innerText = `Total route distance: ${totalMiles} miles`;
+  document.getElementById("tripDetails").innerText = `You're going ${totalMiles} miles!`;
   if (chargeTimes <= 1){
     document.getElementById("summary").innerText = `Based on your vehicle\'s range of ${selectedRange} you should reach your destination without needing to charge! Be sure to charge when you arrive `;
   } else {

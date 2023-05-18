@@ -145,7 +145,7 @@ form {
 #arrow {
     height: 80px;
     position: absolute;
-    top: 175;
+    top: 100;
     left: 50%;
     transform: translateX(-50%);
 }
