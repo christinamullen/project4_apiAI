@@ -210,22 +210,6 @@ function addTripData(totalMiles, chargeTimes, selectedRange, destination) {
   }
   //document.getElementById("turnByturn").innerText = `Turn by Turn directions`;
   document.getElementById("stations").innerText = `Charging station options near ${destination}`;
+  document.getElementById("arrow").src = 'img/downArrow.png';
   
  }
- /*
- async function getChargingStations(){
-  // Fetch charging stations along the route
-  const response = await fetch('https://basic-api-proxy-server.cnico078.repl.co/charging_stations', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify({ origin: originCoords, destination: destinationCoords })
-   });
-   const chargingStationsData = await response.json();
-   chargingStationsData.forEach(station => {
-     let marker = L.marker([station.lat, station.lng]).addTo(destinationMap);
-     marker.bindPopup(`<b>${station.name}</b><br>Capacity: ${station.capacity}`);
-   });
-}
-*/

@@ -136,8 +136,19 @@ form {
 }
 .back-center, .front-center {
     padding: 5%;
-}
+    position: relative;
 
+}
+.back-center {
+    position: relative;
+}
+#arrow {
+    height: 80px;
+    position: absolute;
+    top: 175;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 #map, #destinationMap { 
     height: 250px; 
