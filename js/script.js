@@ -41,6 +41,7 @@ var submitBtn = document.getElementById('searchButton');
 //destination lat,lng
 var arrivalLat = " ";
 var arrivalLng = " ";
+var coordinates
 
 submitBtn.addEventListener('click', function() {
   //remove previous markers if not null
@@ -173,15 +174,21 @@ function generateRoute() {
     .then(response => response.json())
     .then(chargingStationsData => {
       console.log('charging station data:', chargingStationsData);
-      chargingStationsData.forEach(station => {
-        let marker = L.marker([station.lat, station.lng]).addTo(destinationMap);
-        marker.bindPopup(`<b>${station.name}</b><br>Capacity: ${station.capacity}`);
+      console.log('charging station name: ', chargingStationsData.items[2].title)
+      coordinates = [arrivalLat, arrivalLng];
+      console.log(coordinates);
+
+      chargingStationsData.items.forEach(station => {
+        if (station.title === "ChargePoint"){
+          return;
+        } else {
+          let marker = L.marker([station.position.lat, station.position.lng]).addTo(destinationMap);
+        marker.bindPopup(`<b>${station.title}</b><br>${station.address.houseNumber} ${station.address.street} <br>${station.address.city}, ${station.address.stateCode} ${station.address.postalCode}  `);
+        }
+        
       });
-      return {
-        routeData: data.routeData,
-        originCoords: data.originCoords,
-        destinationCoords: data.destinationCoords
-      };
+      destinationMap.setView(coordinates, 13); //change map view
+      
     })
     .catch(error => console.error('Error:', error));
     });
