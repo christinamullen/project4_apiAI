@@ -6,6 +6,7 @@
     --c-pink: #F55DB9;
     --c-dpink: #A82774;
     --c-grey: #B3B3B3;
+    --c-dkgrey: #666;
 
     --fc-main: #ffffff;
 
@@ -15,20 +16,20 @@
 body {
     background-color: var(--c-bkg);
     background-image: url('/img/topo_topLeft.png');
-    background-size: 75%;
+    background-size: 80%;
     background-repeat: no-repeat;
     font-family: var(--ff-hind);
     color: var(--fc-main);
 }
 .container {
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
 }
 .top{
-    margin: 20% auto 5% auto;
+    margin: 20% auto auto auto;
 }
 .searchInputs {
-    display: inline-flex;
+    display: flex;
     
 }
 form {
@@ -62,21 +63,48 @@ input {
     transition-duration: 300ms;
     
 }
-#submitButton:hover {
+.middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.resultTile{
+    background-color: var(--c-dkgrey);
+    border-radius: 10px;
+    margin-top: 50px;
+    padding: 2%;
+    height: 385px;
+    width: 300px;
+}
+
+#map { 
+    height: 250px; 
+    border-radius: 10px;
+}
+
+#searchButton:hover {
     background-color: var(--c-pink);
     color: var(--fc-main);
     border: 2px solid #F55DB9;
 }
 
-#submitButton:active {
+#searchButton:active {
     background-color: var(--c-pink);
     box-shadow: 0 3px #666;
     transform: translateY(4px);
 }
 
+.bottom {
+    
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); 
+    margin: auto;
+}
 
 #bottom-tiles {
-    display: flex;
+    padding-top: 5%;
 }
 
 .sample-tiles {
@@ -87,17 +115,38 @@ input {
     height: 350px;
     width: 300px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    
 }
 
 .sample-tiles > img {
     height: 200px;
-    width: 250px;
+    width: 260px;
     flex-shrink: 0;
+    border-radius: 10px;
+    margin: auto;
 
 }
 .sample-tiles > h3 {
     margin: 0;
     flex-shrink: 0;
 }
+@media screen and (min-width: 680px) {
+    .bottom {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    }
+  }
+  
+  @media screen and (min-width: 980px) {
+    .bottom {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); 
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
