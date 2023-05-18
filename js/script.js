@@ -42,7 +42,7 @@ submitBtn.addEventListener('click', function() {
   }
 
   generateRoute();
-  addTripData();
+  
   //Trip details for front
   document.getElementById("tripInfo").innerText = `Your trip: ${origin.value} to ${destination.value}`;
   //document.getElementById("tripInfo2").innerText = `click for trip details`;
@@ -119,8 +119,10 @@ function generateRoute() {
       var totalMiles = (totalDistance /1000)*0.621371;
       console.log('Total distance of the route:', totalMiles);
       console.log(range.value);
+      var selectedRange = range.value;
       var chargeTimes = totalMiles/range.value;
-
+      //call tripdata to put trip info on back of flippy card
+      addTripData(totalMiles, chargeTimes, selectedRange, destinationCity);
       if (chargeTimes <= 1){
         console.log('Based on your vehicle\'s range of ', range.value, ' you should reach your destination without needing to charge! You will need to charge when you get there. Here are some options: ');
       } else {
@@ -140,4 +142,18 @@ function generateRoute() {
     console.error('Error in generateRoute function:', error);
   }
 }
+function addTripData(totalMiles, chargeTimes, selectedRange, destination) {
+  totalMiles = totalMiles.toFixed(2);
+  chargeTimes = chargeTimes.toFixed(0);
 
+  document.getElementById("totalMiles").innerText = `Total route distance: ${totalMiles} miles`;
+  if (chargeTimes <= 1){
+    document.getElementById("summary").innerText = `Based on your vehicle\'s range of ${selectedRange} you should reach your destination without needing to charge! Be sure to charge when you arrive `;
+  } else {
+    document.getElementById("summary").innerText = `Based on your vehicle\'s range of ${selectedRange} you will need to charge at least ${chargeTimes} times to reach your destination.`;
+  }
+  document.getElementById("turnByturn").innerText = `Turn by Turn directions`;
+  document.getElementById("stations").innerText = `Charging station options near ${destination}`;
+  
+
+ }
