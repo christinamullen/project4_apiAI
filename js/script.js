@@ -38,6 +38,10 @@ var originMarker = null;
 var destinationMarker = null;
 var submitBtn = document.getElementById('searchButton');
 
+//destination lat,lng
+var arrivalLat = " ";
+var arrivalLng = " ";
+
 submitBtn.addEventListener('click', function() {
   //remove previous markers if not null
   if (originMarker != null) {
@@ -117,15 +121,22 @@ function generateRoute() {
     
       // Calculate the total distance of the route by adding up the lengths of all sections
       totalDistance = 0;
+
+
       sections.forEach(section => {
         console.log('section: ', section.travelSummary.length);
         totalDistance += section.travelSummary.length;
+        
+        arrivalLat = section.arrival.place.location.lat;
+        console.log('destination lat: ', arrivalLat); 
+        arrivalLng = section.arrival.place.location.lng;
+        console.log('destination lng: ', arrivalLng);
       });
 
       var totalMiles = (totalDistance /1000)*0.621371;
       console.log('Total distance of the route:', totalMiles);
       console.log('range: ', range.value);
-      console.log('origin: ', routeData.destinationCoords);
+      console.log('destination lat, lng: ', arrivalLat, ", ", arrivalLng); 
 /**Where are the destinationCoords returned in the response?****************** */
 
 
@@ -152,7 +163,12 @@ function generateRoute() {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ location: data.destinationCoords })
+    body: JSON.stringify({ 
+      location: { 
+          lat: arrivalLat, 
+          lng: arrivalLng 
+      } 
+  })
 
     /**Body needs to be in this format
  * {
