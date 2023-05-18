@@ -158,7 +158,7 @@ function generateRoute() {
     })
     
     // Fetch charging stations along the route
-  .then (data => fetch('https://basic-api-proxy-server.cnico078.repl.co/charging_stations', {
+  .then (data => fetch('https://basic-api-proxy-server.cnico078.repl.co/discover_chargingStations', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -169,18 +169,10 @@ function generateRoute() {
           lng: arrivalLng 
       } 
   })
-
-    /**Body needs to be in this format
- * {
-  "location": {
-    "lat": 37.7749,
-    "lng": -122.4194
-  }
-} */
   }))
     .then(response => response.json())
     .then(chargingStationsData => {
-      console.log(chargingStationsData);
+      console.log('charging station data:', chargingStationsData);
       chargingStationsData.forEach(station => {
         let marker = L.marker([station.lat, station.lng]).addTo(destinationMap);
         marker.bindPopup(`<b>${station.name}</b><br>Capacity: ${station.capacity}`);
