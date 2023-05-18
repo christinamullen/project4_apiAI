@@ -5,6 +5,7 @@ var rangeArray = [50, 100, 150, 200, 250, 300];
 var origin = document.getElementById("startCitySelect");
 var destination = document.getElementById("endCitySelect");
 var range = document.getElementById("rangeSelect");
+let totalDistance = 0;
 
 buildDropdown(cityArray, origin);
 buildDropdown(ecityArray, destination);
@@ -41,17 +42,20 @@ submitBtn.addEventListener('click', function() {
   }
 
   generateRoute();
+  addTripData();
   //Trip details for front
   document.getElementById("tripInfo").innerText = `Your trip: ${origin.value} to ${destination.value}`;
-  document.getElementById("tripInfo2").innerText = `click for trip details`;
+  //document.getElementById("tripInfo2").innerText = `click for trip details`;
   //details for back
-  
+
 
 });
 
 function generateRoute() {
-  let originCity = origin.value;
-  let destinationCity = destination.value;
+  try {
+    let originCity = origin.value;
+    let destinationCity = destination.value;
+
 
   // fetch coordinates for origin and destination 
   //input as words, use here api to get geocode 
@@ -90,50 +94,50 @@ function generateRoute() {
           origin: originCoords,
           destination: destinationCoords
         })
-      })
-      //obj to json
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      //do something w data
-      .then(routeData => ({
-        routeData,
-        originCoords,
-        destinationCoords
-      }));
     })
-
-    //***********************************Not being reached yet, is it needed?************************************** */
-    //callback
-    .then(({
-      routeData,
-      routeCoordinates
-    }) => {
-      console.log('Route Data: ' + routeData)
-      //console.log('Route Coordinates: ' + routeCoordinates)
-
-      // Extract route sections from the data
+    //obj to json
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    //do something w data
+    .then(routeData => {
+      console.log('Route data before processing:', routeData);
+    
+      // Extract the sections from the route data
       const sections = routeData.routes[0].sections;
-      console.log(sections);
-
-      sections.forEach((section) => {
-        //console.log("polyline: " + section.polyline);
-
-        originMarker.bindPopup(`<b>Departure</b><br>Charge: ${section.departure.charge}%`);
-        destinationMarker.bindPopup(`<b>Arrival</b><br>Charge: ${section.arrival.charge}%`);
-
-        console.log(section.arrival.place.type);
-        // If the arrival place is a charging station, add a special popup
-        if (section.arrival.place.type === "chargingStation") {
-          destinationMarker.bindPopup(`<b>Charging Station</b><br>ID: ${section.arrival.place.id}<br>Charge: ${section.arrival.charge}%`);
-        }
-        
+    
+      // Calculate the total distance of the route by adding up the lengths of all sections
+      totalDistance = 0;
+      sections.forEach(section => {
+        console.log('section: ', section.travelSummary.length);
+        totalDistance += section.travelSummary.length;
       });
+
+      var totalMiles = (totalDistance /1000)*0.621371;
+      console.log('Total distance of the route:', totalMiles);
+      console.log(range.value);
+      var chargeTimes = totalMiles/range.value;
+
+      if (chargeTimes <= 1){
+        console.log('Based on your vehicle\'s range of ', range.value, ' you should reach your destination without needing to charge! You will need to charge when you get there. Here are some options: ');
+      } else {
+        console.log('Based on your vehicle\'s range of ', range.value, ' you will need to charge at least ',  chargeTimes, ' times to reach your destination.');
+      }
       
+    
+        return {
+          routeData,
+          originCoords: routeData.originCoords,
+          destinationCoords: routeData.destinationCoords
+        };
+      })
+      .catch(error => console.error('Error:', error));
     })
-    .catch(error => console.error('Error:', error));
-  
+  } catch (error) {
+    console.error('Error in generateRoute function:', error);
+  }
 }
+
