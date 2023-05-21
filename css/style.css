@@ -18,7 +18,10 @@
 }
 body {
     background-color: var(--c-bkg);
-    background-image: url('/project4_apiAI/img/topo_topLeft.png');
+    /* the image is relative to the CSS location
+    you need to go up out of the CSS folder to see the img folder
+    */
+    background-image: url('../img/topo_topLeft.png');
     background-size: 80%;
     background-repeat: no-repeat;
     font-family: var(--ff-hind);
